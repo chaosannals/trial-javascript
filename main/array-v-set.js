@@ -20,3 +20,15 @@ timing('array diff', () => {
 timing('set diff', () => {
     return Array.from(sa).filter(i => !sb.has(i));
 });
+
+timing('array merge', () => {
+    let result = aa.filter(i => ab.indexOf(i) < 0);
+    ab.forEach(i => result.push(i));
+    return result;
+});
+
+timing('set merge', () => {
+    let result = Array.from(sa).filter(i => !sb.has(i));
+    sb.forEach(i => result.push(i));
+    return result;
+});
