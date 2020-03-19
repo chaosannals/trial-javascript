@@ -10,7 +10,8 @@ timing('array intersect', () => {
 });
 
 timing('set intersect', () => {
-    return Array.from(sa).filter(i => sb.has(i));
+    let result = Array.from(sa).filter(i => sb.has(i));
+    return new Set(result);
 });
 
 timing('array diff', () => {
@@ -18,7 +19,8 @@ timing('array diff', () => {
 });
 
 timing('set diff', () => {
-    return Array.from(sa).filter(i => !sb.has(i));
+    let result = Array.from(sa).filter(i => !sb.has(i));
+    return new Set(result);
 });
 
 timing('array merge', () => {
@@ -30,5 +32,5 @@ timing('array merge', () => {
 timing('set merge', () => {
     let result = Array.from(sa).filter(i => !sb.has(i));
     sb.forEach(i => result.push(i));
-    return result;
+    return new Set(result);
 });
