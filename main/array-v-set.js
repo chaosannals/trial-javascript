@@ -1,12 +1,26 @@
 import { timing, randomSet } from './common.js';
 
-let sa = randomSet(100000, 1, 10000000);
-let sb = randomSet(100000, 1, 10000000);
-let aa = Array.from(sa);
-let ab = Array.from(sb);
+let sa = randomSet(1000000, 1, 10000000);
+let sb = randomSet(1000000, 1, 10000000);
+let aa = Array.from(sa).sort();
+let ab = Array.from(sb).sort();
 
 timing('array intersect', () => {
-    return aa.filter(i => ab.indexOf(i) >= 0);
+    let result = [];
+    let i = 0;
+    let j = 0;
+    while (i < aa.length && j < ab.length) {
+        if (aa[i] < ab[i]) {
+            ++i;
+        } else if (aa[i] > ab[i]) {
+            ++j;
+        } else {
+            result.push(aa[i]);
+            ++i;
+            ++j;
+        }
+    }
+    return result;
 });
 
 timing('set intersect', () => {
@@ -15,7 +29,23 @@ timing('set intersect', () => {
 });
 
 timing('array diff', () => {
-    return aa.filter(i => ab.indexOf(i) < 0);
+    let result = [];
+    let i = 0;
+    let j = 0;
+    while (i < aa.length && j < ab.length) {
+        if (aa[i] < ab[j]) {
+            result.push(aa[i++]);
+        } else if(aa[i] > ab[i]) {
+            ++j;
+        } else {
+            ++i;
+            ++j;
+        }
+    }
+    while (i < aa.length) {
+        result.push(aa[++i]);
+    }
+    return result;
 });
 
 timing('set diff', () => {
@@ -24,9 +54,31 @@ timing('set diff', () => {
 });
 
 timing('array merge', () => {
-    let result = aa.filter(i => ab.indexOf(i) < 0);
-    ab.forEach(i => result.push(i));
-    return result;
+    let result = [];
+    let i = 0;
+    let j = 0;
+    while (true) {
+        if (i >= aa.length) {
+            while (j < ab.length) {
+                result.push(ab[j++]);
+            }
+            return result;
+        }
+        if (j >= ab.length) {
+            while (i < aa.length) {
+                result.push(aa[i++]);
+            }
+            return result;
+        }
+        if (aa[i] < ab[j]) {
+            result.push(aa[i++]);
+        } else if (aa[i] > ab[j]) {
+            result.push(ab[j++]);
+        } else {
+            result.push(aa[i++]);
+            ++j;
+        }
+    }
 });
 
 timing('set merge', () => {

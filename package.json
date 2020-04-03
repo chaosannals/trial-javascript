@@ -12,6 +12,10 @@
     "email": "chaosannals@outlook.com"
   },
   "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mysql": "^2.18.1"
+  },
   "devDependencies": {
     "jest": "^25.1.0"
   }
