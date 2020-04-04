@@ -5,14 +5,14 @@ let sb = randomSet(1000000, 1, 10000000);
 let aa = Array.from(sa).sort();
 let ab = Array.from(sb).sort();
 
-timing('array intersect', () => {
+let ai = timing('array intersect', () => {
     let result = [];
     let i = 0;
     let j = 0;
     while (i < aa.length && j < ab.length) {
-        if (aa[i] < ab[i]) {
+        if (aa[i] < ab[j]) {
             ++i;
-        } else if (aa[i] > ab[i]) {
+        } else if (aa[i] > ab[j]) {
             ++j;
         } else {
             result.push(aa[i]);
@@ -22,20 +22,22 @@ timing('array intersect', () => {
     }
     return result;
 });
+console.log(`array size: ${ai.length}`);
 
-timing('set intersect', () => {
+let si = timing('set intersect', () => {
     let result = Array.from(sa).filter(i => sb.has(i));
     return new Set(result);
 });
+console.log(`set size: ${si.size}`);
 
-timing('array diff', () => {
+let ad = timing('array diff', () => {
     let result = [];
     let i = 0;
     let j = 0;
     while (i < aa.length && j < ab.length) {
         if (aa[i] < ab[j]) {
             result.push(aa[i++]);
-        } else if(aa[i] > ab[i]) {
+        } else if(aa[i] > ab[j]) {
             ++j;
         } else {
             ++i;
@@ -43,17 +45,19 @@ timing('array diff', () => {
         }
     }
     while (i < aa.length) {
-        result.push(aa[++i]);
+        result.push(aa[i++]);
     }
     return result;
 });
+console.log(`array size: ${ad.length}`);
 
-timing('set diff', () => {
+let sd = timing('set diff', () => {
     let result = Array.from(sa).filter(i => !sb.has(i));
     return new Set(result);
 });
+console.log(`set size: ${sd.size}`);
 
-timing('array merge', () => {
+let am = timing('array merge', () => {
     let result = [];
     let i = 0;
     let j = 0;
@@ -80,9 +84,11 @@ timing('array merge', () => {
         }
     }
 });
+console.log(`array size: ${am.length}`);
 
-timing('set merge', () => {
-    let result = Array.from(sa).filter(i => !sb.has(i));
-    sb.forEach(i => result.push(i));
-    return new Set(result);
+let sm = timing('set merge', () => {
+    let result = new Set(sa);
+    sb.forEach(i => result.add(i));
+    return result;
 });
+console.log(`set size: ${sm.size}`);

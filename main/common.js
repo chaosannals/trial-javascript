@@ -12,10 +12,10 @@ export function randomSet(length, min, max) {
     while (result.size < length) {
         while (true) {
             let n = min + Math.floor(Math.random() * max);
-            if (result.has(n)) {
+            if (!result.has(n)) {
+                result.add(n);
                 break;
             }
-            result.add(n);
         }
     }
     return result;
