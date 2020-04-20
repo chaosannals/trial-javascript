@@ -1,3 +1,9 @@
+/**
+ * 用时
+ * 
+ * @param {*} tag 
+ * @param {*} callback 
+ */
 export function timing(tag, callback) {
     let start = new Date().getTime();
     let result = callback();
@@ -7,6 +13,27 @@ export function timing(tag, callback) {
     return result;
 }
 
+/**
+ * 随机 ID
+ * 
+ * @param {*} length 
+ */
+export function randomId(length) {
+    let result = [];
+    for (let i = 0; i < length; ++i) {
+        let v = Math.floor(Math.random() * 16);
+        result.push(v.toString(16));
+    }
+    return result.join();
+}
+
+/**
+ * 随机集合。
+ * 
+ * @param {*} length 
+ * @param {*} min 
+ * @param {*} max 
+ */
 export function randomSet(length, min, max) {
     let result = new Set();
     while (result.size < length) {
@@ -21,6 +48,12 @@ export function randomSet(length, min, max) {
     return result;
 }
 
+/**
+ * 有序数组交集
+ * 
+ * @param {*} a 
+ * @param {*} b 
+ */
 export function arrayIntersect(a, b) {
     let result = [];
     let i = 0;
@@ -39,6 +72,12 @@ export function arrayIntersect(a, b) {
     return result;
 }
 
+/**
+ * 有序数组取差
+ * 
+ * @param {*} a 
+ * @param {*} b 
+ */
 export function arrayDiff(a, b) {
     let result = [];
     let i = 0;
@@ -59,6 +98,12 @@ export function arrayDiff(a, b) {
     return result;
 }
 
+/**
+ * 有序数组并集
+ * 
+ * @param {*} a 
+ * @param {*} b 
+ */
 export function arrayMerge(a, b) {
     let result = [];
     let i = 0;
