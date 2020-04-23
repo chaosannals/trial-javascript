@@ -99,6 +99,38 @@ export function arrayDiff(a, b) {
 }
 
 /**
+ * 分离出重复和唯一项。
+ * 
+ * @param {*} a 
+ * @param {*} b 
+ */
+export function arraySegregate(a, b) {
+    let unique = [];
+    let repeat = [];
+    let i = 0;
+    let j = 0;
+    while (i < a.length && j < b.length) {
+        if (a[i] < b[j]) {
+            unique.push(a[i]);
+            ++i;
+        } else if (a[i] > b[j]) {
+            ++j;
+        } else {
+            repeat.push(a[i]);
+            ++i;
+            ++j;
+        }
+    }
+    while (i < a.length) {
+        unique.push(a[i++]);
+    }
+    return {
+        unique: unique,
+        repeat: repeat,
+    }
+}
+
+/**
  * 有序数组并集
  * 
  * @param {*} a 

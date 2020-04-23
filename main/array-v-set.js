@@ -3,7 +3,8 @@ import {
     randomSet,
     arrayIntersect,
     arrayDiff,
-    arrayMerge
+    arraySegregate,
+    arrayMerge,
 } from './common.js';
 
 const sa = randomSet(1000000, 1, 10000000);
@@ -38,6 +39,11 @@ let am = timing('array merge', () => {
     return arrayMerge(aa, ab);
 });
 console.log(`array size: ${am.length}`);
+
+let as = timing('array segregate', () => {
+    return arraySegregate(aa, ab);
+});
+console.log(`array size: ${as.repeat.length} | ${as.unique.length}`);
 
 let sm = timing('set merge', () => {
     let result = new Set(sa);
