@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "args": "node main/args.js",
     "test": "jest",
     "to": "node call.js"
   },
