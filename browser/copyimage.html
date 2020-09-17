@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <input id="input" style="width: 500px" />
+    <button id="button">复制</button>
+    <script type="text/javascript">
+        let input = document.body.querySelector('#input');
+        let button = document.body.querySelector('#button');
+        button.addEventListener('click', () => {
+            let image = new Image();
+            image.crossOrigin = 'Anonymous';
+            image.src = input.value;
+            image.onload = e => {
+                var canvas = document.createElement('canvas');
+                canvas.width = image.width;
+                canvas.height = image.height;
+                var context = canvas.getContext('2d');
+                context.drawImage(image, 0, 0, image.width, image.height);
+                canvas.toBlob(blob => {
+                    navigator.clipboard.write([
+                        new ClipboardItem({
+                            [blob.type]: blob
+                        }),
+                    ]).then(e => {
+                        console.log('then', e);
+                    }).catch(e => {
+                        console.log('catch', e);
+                    });
+                });
+            };
+        });
+    </script>
+</body>
+
+</html>
