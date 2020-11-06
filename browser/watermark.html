@@ -36,18 +36,17 @@
                 canvas.height = height;
                 context.drawImage(image, 0, 0);
                 // 绘制文字水印。
+                let wh = height / 30; // 水印高度
+                let fsize = wh; // 字体大小
+                context.font = `bold ${fsize}px Arial`;
+                let m = context.measureText(mark); // 测量宽度
 
-                let wh = height / 10;
-                let ml = mark.length;
-                let top = height - wh;
-                let fsize = wh;
-                let ww = ml * fsize * 0.7;
-                let left = width - ww;
+                let top = height - wh; //
+                let ww = m.width;
+                let left = (width - ww) / 2;
 
                 console.log('info', wh, ww, width, height, left, top, fsize);
-
-                context.font = `${fsize}px bold 黑体`;
-                context.fillStyle = "#fffb";
+                context.fillStyle = "#000";
                 context.textAlign = "left";
                 context.textBaseline = "middle";
                 context.fillText(mark, left, top);
@@ -64,7 +63,7 @@
         let upload = document.body.querySelector('#upload');
         upload.addEventListener('input', async e => {
             let file = e.target.files[0];
-            let nfile = await printWatermark(file, '水印123456');
+            let nfile = await printWatermark(file, 'ABCDEFGHIGKLMN123456789');
             let url = URL.createObjectURL(nfile);
             image.src = url;
         });
