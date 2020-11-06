@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <input type="file" id="upload"/>
+    <img alt="帧" id="image"/>
+    <script type="text/javascript">
+        // 指定帧渲染成文件。
+        async function getCurrentFrame(video) {
+            return new Promise((resolve, reject) => {
+                let canvas = document.createElement('canvas');
+                let context = canvas.getContext('2d');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                canvas.toBlob(blob => {
+                    resolve(blob);
+                })
+            });
+        }
+
+        // 获取指定时间的帧。
+        async function getCurrentFrameFrom(file, currentTime = 1) {
+            return new Promise((resolve, reject) => {
+                var video = document.createElement('video');
+                video.src = URL.createObjectURL(file);
+                video.onloadeddata = () => {
+                    video.onseeked = async () => {
+                        resolve(await getCurrentFrame(video));
+                    }
+                    video.currentTime = currentTime;
+                }
+                video.onerror = (e) => {
+                    reject(e);
+                }
+            });
+        }
+
+        // 用户操作。
+        let image = document.body.querySelector('#image');
+        let upload = document.body.querySelector('#upload');
+        upload.addEventListener('input', async e => {
+            let file = e.target.files[0];
+            let nfile = await getCurrentFrameFrom(file, 5);
+            let url = URL.createObjectURL(nfile);
+            image.src = url;
+        });
+    </script>
+</body>
+
+</html>
