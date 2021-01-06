@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <input id="input" style="width: 500px" type="file" />
+    <button id="button">复制</button>
+    <script type="text/javascript">
+        let input = document.body.querySelector('#input');
+        let button = document.body.querySelector('#button');
+        button.addEventListener('click', () => {
+            console.log(input.files);
+            // 把 blob 转成 object url
+            let ourl = URL.createObjectURL(input.files[0]);
+
+            // 在需要的时候可以通过 fetch ajax 获取后转成 blob
+            fetch(ourl).then(function (response) {
+                console.log(response);
+                let data = [];
+                response.arrayBuffer().then(b => {
+                    // 转成 blob
+                    let blob = new Blob([b]);
+
+                    // 以下为验证数据是否完全提供的下载。
+                    var a = document.createElement("a");
+                    var url = URL.createObjectURL(blob);
+                    document.body.appendChild(a);
+                    a.style = "display: none";
+                    a.download = 'a.png'
+                    a.href = url;
+                    a.click();
+                    document.body.removeChild(a);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
