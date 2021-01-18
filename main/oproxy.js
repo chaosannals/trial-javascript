@@ -28,5 +28,6 @@ console.log(p2, b);
 
 p2[2] = 33;
 p2[0].z = 333;
+p2.push('aaaa');
 
 console.log(p2, b);
