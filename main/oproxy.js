@@ -27,6 +27,9 @@ p2[0] = { z: 1, x: 2};
 console.log(p2, b);
 
 p2[2] = 33;
+p2[5] = 666;
+p2[4] = null;
+p2[3] = undefined;
 p2[0].z = 333;
 p2.push('aaaa');
 
