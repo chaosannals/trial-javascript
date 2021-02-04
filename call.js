@@ -7,5 +7,6 @@ if (process.argv.length > 2) {
     let param = process.argv.slice(2);
     let file = path.resolve(folder, param[0]);
     let link = url.pathToFileURL(file);
+    console.log(`call ${link}`);
     import(link);
 }
