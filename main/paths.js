@@ -1,5 +1,5 @@
 function basename(path, bare) {
-  let group = path.split(/[\\\/]/).filter((i) => i.length > 0);
+  let group = path.split(/[\\/]/).filter((i) => i.length > 0);
   let name = group[group.length - 1];
   if (bare) {
     let i = name.lastIndexOf(".");
