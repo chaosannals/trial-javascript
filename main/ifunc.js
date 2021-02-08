@@ -180,18 +180,30 @@ class Parser {
     if (equlv1next == null) {
       return equlv2;
     }
+    // 简单结构
     equlv1next.left = equlv2;
-
-    // 左结合
     let right = equlv1next.right;
     let rt = right.type;
-    if (rt == "add" || rt == "sub") {
-      equlv1next.right = right.left;
-      right.left = equlv1next;
-      return right;
+    if (rt != "add" && rt != "sub") {
+      return equlv1next;
     }
 
-    return equlv1next;
+    // 左结合
+    let arrow = equlv1next.right;
+    let at = arrow.type;
+    while (at == "add" || at == "sub") {
+      let left = arrow.left;
+      let lt = left.type;
+      if (lt != "add" && lt != "sub") {
+        break;
+      }
+      arrow = left;
+      at = lt;
+    }
+    equlv1next.right = arrow.left;
+    arrow.left = equlv1next;
+
+    return right;
   }
 
   /**
@@ -226,17 +238,32 @@ class Parser {
     if (equlv2next == null) {
       return factor;
     }
-    equlv2next.left = factor;
 
-    // 左结合
+    // 简单结构
+    equlv2next.left = factor;
     let right = equlv2next.right;
     let rt = right.type;
-    if (rt == "mul" || rt == "div") {
-      equlv2next.right = right.left;
-      right.left = equlv2next;
-      return right;
+    if (rt != "mul" && rt != "div") {
+      return equlv2next;
     }
-    return equlv2next;
+
+    // 左结合
+    let arrow = equlv2next.right;
+    let at = arrow.type;
+    while (at == "mul" || at == "div") {
+      let left = arrow.left;
+      let lt = left.type;
+      if (lt != "mul" && lt != "div") {
+        break;
+      }
+      arrow = left;
+      at = lt;
+    }
+    equlv2next.right = arrow.left;
+    arrow.left = equlv2next;
+
+    // 返回根
+    return right;
   }
 
   /**
@@ -317,7 +344,7 @@ class Parser {
   }
 }
 
-let formula = "1.69 + x * 1.1 / 0.3 * (10.5 - 5.6 + 3.2)";
+let formula = "1.69 + x * 1.1 / 0.3 * (10.5 - 5.6 + 3.2 - 4.0)";
 let lexer = new Lexer();
 let ls = lexer.lex(formula);
 let parser = new Parser();
