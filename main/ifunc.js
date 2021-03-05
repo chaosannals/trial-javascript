@@ -376,3 +376,61 @@ y = 1.69 + x * 1.1 / 4.9
 1.69 + y1 / 4.9
 1.69 + y2
 */
+
+/*
+equ_lv1:
+    equ_lv2 equ_lv1_next
+
+equ_lv1_next:
+    + equ_lv1
+    - equ_lv1
+    空
+
+equ_lv2:
+    equ_lv3 equ_lv2_next
+    
+equ_lv2_next:
+    * equ_lv2
+    / equ_lv2
+    空
+    
+equ_lv3:
+    - factor
+    + factor
+    ( equ_lv1 )
+    factor
+    
+factor:
+    number
+    identifer
+*/
+
+/*
+加法
+f(x) = x + a
+g(y) = y - a
+
+f(x) = a + x
+g(y) = y - a
+
+减法
+f(x) = x - a
+g(y) = y + a
+
+f(x) = a - x
+g(y) = a - y
+
+乘法
+f(x) = x * a
+g(y) = y / a
+
+f(x) = a * x
+g(y) = y / a
+
+除法
+f(x) = x / a
+g(y) = y * a
+
+f(x) = a / x
+g(y) = a / y
+*/
