@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <button id="button">测试</button>
+    <script type="text/javascript">
+        let url = `ws://${window.location.hostname}:8000/path`;
+        let socket = new WebSocket(url);
+        socket.addEventListener('open', () => {
+            let data = {
+                type: 'aaa',
+                message: '11111',
+                value: 1234,
+            };
+            socket.send(JSON.stringify(data));
+        });
+        socket.addEventListener('message', e => {
+            console.log(e);
+            setTimeout(() => {
+                let info = {
+                    type: 'aaaa',
+                    info: 'bbbbb',
+                    value: 1234,
+                    help: {
+                        value: 'adfad'
+                    },
+                };
+                socket.send(JSON.stringify(info));
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
