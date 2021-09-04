@@ -13,7 +13,7 @@
                 this.value = value;
             }
             toJSON() {
-                return `${this.value}bigint${this.value}bigint`;
+                return `bigint${this.value}bigint${this.value}`;
             }
             toString() {
                 return this.value.toString();
@@ -44,10 +44,11 @@
         }
 
         const maker = new SnowflakeMaker(2n);
-        for (let i = 0; i <= 1000; ++i) {
+        for (let i = 0; i <= 100; ++i) {
             let id = maker.make();
+            let data = JSON.stringify({ id: id }).replace(/"(bigint(\d+)){2}"/, "$2");
             // JS 使用 double 存储，无法精度 64 位，JSON 不支持。
-            console.log(i, id, JSON.stringify({ id: id }));
+            console.log(i, id.toString(), data);
         }
     </script>
 </body>
