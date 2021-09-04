@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <script type="text/javascript">
+        // JS 使用 double 存储，无法精度 64 位，JSON 不支持。
+        class SnowflakeId {
+            constructor(value) {
+                this.value = value;
+            }
+            toJSON() {
+                return `${this.value}bigint${this.value}bigint`;
+            }
+            toString() {
+                return this.value.toString();
+            }
+        }
+
+        class SnowflakeMaker {
+            constructor(nodeId) {
+                this.nodeId = nodeId || 0n;
+                this.lastTime = Date.now();
+                this.lastId = 0n;
+            }
+
+            make() {
+                let result = this.nodeId << (41n + 12n);
+                let now = Date.now();
+                let time = BigInt(now);
+                if (now == this.lastTime) {
+                    ++this.lastId;
+                } else {
+                    //console.log(this.lastId);
+                    this.lastId = 0n;
+                    this.lastTime = now;
+                }
+                // console.log(this.lastId, now, this.lastTime);
+                return new SnowflakeId(result + time + (this.lastId << 41n));
+            }
+        }
+
+        const maker = new SnowflakeMaker(2n);
+        for (let i = 0; i <= 1000; ++i) {
+            let id = maker.make();
+            // JS 使用 double 存储，无法精度 64 位，JSON 不支持。
+            console.log(i, id, JSON.stringify({ id: id }));
+        }
+    </script>
+</body>
+
+</html>
