@@ -7,13 +7,21 @@
 
 <body>
     <script type="text/javascript">
+        function range(start, end, step) {
+            let result = []
+            for (let i = start; i <= end; i += step) {
+                result.push(i);
+            }
+            return result;
+        }
+
         // JS 使用 double 存储，无法精度 64 位，JSON 不支持。
         class SnowflakeId {
             constructor(value) {
                 this.value = value;
             }
             toJSON() {
-                return `bigint${this.value}bigint${this.value}`;
+                return `bigint${this.value}bigint${this.value}bigint`;
             }
             toString() {
                 return this.value.toString();
@@ -43,12 +51,18 @@
             }
         }
 
-        const maker = new SnowflakeMaker(2n);
+        const maker = new SnowflakeMaker(1000n);
         for (let i = 0; i <= 100; ++i) {
             let id = maker.make();
-            let data = JSON.stringify({ id: id }).replace(/"(bigint(\d+)){2}"/, "$2");
+            let ids = range(0, 10, 1).map(i => maker.make());
+            let data = JSON.stringify({ id: id, ids: ids }).replace(/"(bigint(\d+)){2}bigint"/g, "$2");
             // JS 使用 double 存储，无法精度 64 位，JSON 不支持。
             console.log(i, id.toString(), data);
+
+            // 解析的时候也无法精确解析 64位 大数，不会报错但是会损失几位，所以必须做字符串处理。
+            let rdata = data.replace(/(\d{15,})/g, '"$1"');
+            let result = JSON.parse(rdata, (k, v) => /^\d{15,}$/.test(v) ? BigInt(v) : v);
+            console.log('r', result);
         }
     </script>
 </body>
