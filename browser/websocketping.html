@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <script type="text/javascript">
+        let ips = {};
+        let openeds = [];
+        let start = Date.now();
+        for(let i = 1; i < 255; ++i) {
+            let ip = `192.168.0.${i}`;
+            console.log(`ping: ${ip}`)
+            ips[ip] = 'pinging';
+            let socket = new WebSocket(`ws://${ip}`);
+            socket.onerror = function(e) {
+                delete ips[ip];
+                console.log(Date.now() - start, ips);
+            }
+            socket.onopen = function(e) {
+                openeds.push(ip)
+                delete ips[ip];
+                socket.close();
+                console.log(Date.now() - start, ips);
+            };
+        }
+    </script>
+</body>
+
+</html>
