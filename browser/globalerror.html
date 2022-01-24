@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <script type="text/javascript">
+        window.addEventListener('error', function(e) {
+            console.log('eee', e);
+            return true;
+        });
+
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.log('on eee', message, source, lineno, colno, error);
+        };
+
+        throw new Error('33333333333');
+    </script>
+    <script src="./globalerror-1.js"></script>
+    <script src="./globalerror-2.js"></script>
+</body>
+
+</html>
