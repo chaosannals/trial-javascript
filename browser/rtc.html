@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <button id="button">测试</button>
+    <video src="/res/test.mp4"></video>
+    <script type="text/javascript">
+        var constraints = {
+            audio: false, // 录音 或 音响
+            video: true, // 摄像头
+            // video: {
+            //     width: 1920,
+            //     height: 1080
+            // }
+        };
+
+        // 获取设备
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function (mediaStream) {
+                var video = document.querySelector('video');
+                video.srcObject = mediaStream;
+                video.onloadedmetadata = function (e) {
+                    video.play();
+                };
+            })
+            .catch(function (err) { console.log(err.name + ": " + err.message); }); // always check 
+
+        // 建立连接
+        var pc = new RTCPeerConnection();
+        pc.createOffer()
+    </script>
+</body>
+
+</html>
