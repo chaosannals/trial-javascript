@@ -1,0 +1,18 @@
+{
+  "name": "offlinepkg",
+  "version": "1.0.0",
+  "description": "yet a offline package demo.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "npm-pack-all": "^1.12.7"
+  },
+  "dependencies": {
+    "bson": "^4.7.0"
+  }
+}

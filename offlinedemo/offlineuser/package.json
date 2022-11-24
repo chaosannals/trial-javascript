@@ -1,0 +1,15 @@
+{
+  "name": "offlineuser",
+  "version": "1.0.0",
+  "description": "offline use project demo.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "offlinepkg": "file:../offlinepkg/offlinepkg-1.0.0.tgz"
+  }
+}
