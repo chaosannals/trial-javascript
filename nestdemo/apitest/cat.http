@@ -1,0 +1,16 @@
+### 
+POST http://127.0.0.1:3000/cat/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "123123",
+    "age": 123,
+    "tags": [
+        "aaa",
+        "bbb",
+        "ccc"
+    ]
+}
+
+###
+GET http://127.0.0.1:3000/cat/find HTTP/1.1
