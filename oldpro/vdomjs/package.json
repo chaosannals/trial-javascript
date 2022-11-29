@@ -1,0 +1,30 @@
+{
+  "name": "vdomjs",
+  "version": "0.0.1",
+  "description": "yet a virtual dom library.",
+  "main": "dist/browser.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaosannals/vdomjs.git"
+  },
+  "keywords": [
+    "vdom",
+    "virtual",
+    "dom"
+  ],
+  "author": {
+    "name": "chaosannals",
+    "email": "chaosannals@outlook.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chaosannals/vdomjs/issues"
+  },
+  "homepage": "https://github.com/chaosannals/vdomjs#readme",
+  "devDependencies": {
+    "rollup": "^2.67.0"
+  }
+}
