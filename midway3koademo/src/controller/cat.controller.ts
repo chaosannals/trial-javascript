@@ -4,11 +4,11 @@ import { Controller, Get, Query } from "@midwayjs/core";
 export class CatController {
     @Get('/find')
     async find() {
-
+        return { success: true, message: 'OK' };
     }
 
     @Get('/info')
     async info(@Query('id') id: number) {
-        
+        return { success: true, message: 'OK' };
     }
 }
