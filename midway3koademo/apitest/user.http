@@ -1,2 +1,9 @@
+
 ###
 PUT http://localhost:7444/user/add
+
+###
+GET http://localhost:7444/user/info?id=1
+
+###
+GET http://localhost:7444/user/find

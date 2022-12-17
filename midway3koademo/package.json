@@ -17,6 +17,7 @@
     "mongoose": "^6.0.7"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@midwayjs/cli": "^2.0.0",
     "@midwayjs/mock": "^3.0.0",
     "@types/jest": "^29.2.0",

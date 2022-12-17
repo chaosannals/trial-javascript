@@ -10,20 +10,16 @@ export class UserService {
   @InjectEntityModel(User)
   useModel: ReturnModelType<typeof User>;
 
-  async addUser() {
-    const { _id: id } = await this.useModel.create({
-      name: 'aaaaa',
-      jobs: ['a', 'b'],
-    } as User);
-    console.log(id)
+  async addUser(user: User) {
+    const { _id: id } = await this.useModel.create(user);
+    return id;
   }
 
   async getUser(options: IUserOptions) {
-    return {
-      uid: options.uid,
-      username: 'mockedName',
-      phone: '12345678901',
-      email: 'xxx.xxx@xxx.com',
-    };
+    return await this.useModel.findById(options.uid);
+  }
+
+  async findUser() {
+    return await this.useModel.find({ name: /a/i});
   }
 }

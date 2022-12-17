@@ -19,6 +19,7 @@ export default {
           useNewUrlParser: true,
           useUnifiedTopology: true,
           directConnection: true,
+          readPreference: 'primary',
           replicaSet: 'sn',
           user: 'root',
           pass: 'rootpwd'
@@ -33,6 +34,7 @@ export default {
           useNewUrlParser: true,
           useUnifiedTopology: true,
           directConnection: true,
+          readPreference: 'secondary',
           replicaSet: 'sn',
           user: 'root',
           pass: 'rootpwd'
@@ -47,6 +49,7 @@ export default {
           useNewUrlParser: true,
           useUnifiedTopology: true,
           directConnection: true,
+          readPreference: 'secondary',
           replicaSet: 'sn',
           user: 'root',
           pass: 'rootpwd'
