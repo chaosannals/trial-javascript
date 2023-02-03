@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8"/>
+        <link rel="stylesheet" href="/font.css"/>
+        <title>Custom Font Number</title>
+    </head>
+    <body>
+        <% fonts.forEach(f => { %>
+        <div class="font-<%= f.cclass %>"><%= f.text %></div>
+        <% }); %>
+    </body>
+</html>
