@@ -17,9 +17,8 @@ function globSvg() {
 
 const svgs = globSvg();
 
-export function makefont() {
+function makefont(filename) {
     const start = 0xE000 + Math.floor(Math.random() * (0x18FF - svgs.length - 1));
-    const filename = randomUUID();
     return gulp.src(svgs)
         .pipe(iconfont({
             fontName: filename,
@@ -33,16 +32,29 @@ export function makefont() {
             const rm = {};
             for (let g of glyphs) {
                 const code = g.unicode[0].charCodeAt(0).toString(16);
-                console.log(g.name, code);
+                // console.log(g.name, code);
                 rm[g.name] = code;
             }
             fs.writeFileSync(ansfn, JSON.stringify(rm));
-            console.log(options);
+            // console.log(options);
         })
         .pipe(gulp.dest(distDir));
 
 }
 
-const build = gulp.series(makefont);
+const tasks = Array.from(Array(1000).keys()).map(i => `makefont-${i}`);
+
+for(let taskname of tasks) {
+    console.log(`define: ${taskname}`);
+    gulp.task(taskname, () => {
+        const filename = randomUUID();
+        console.log(`makefont: ${filename}`);
+        return makefont(filename);
+    });
+}
+
+const build = gulp.series(
+    gulp.parallel(tasks)
+);
 
 export default build;
