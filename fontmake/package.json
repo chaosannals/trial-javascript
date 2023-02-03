@@ -1,0 +1,24 @@
+{
+  "name": "fontmake",
+  "version": "1.0.0",
+  "description": "make font for 0-9 and dot.",
+  "main": "index.js",
+  "scripts": {
+    "makefont": "gulp"
+  },
+  "keywords": [
+    "font",
+    "number"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/register": "^7.18.9",
+    "esm": "^3.2.25",
+    "gulp": "^4.0.2",
+    "gulp-iconfont": "^11.0.1",
+    "lodash": "^4.17.21"
+  }
+}
