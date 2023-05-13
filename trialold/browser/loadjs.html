@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8" />
+    <script>
+        function loadError() {
+            var s = document.getElementById('loadJss');
+            console.log('loadError', s);
+
+            s.src = "/loadjs-01.js"; // 直接修改不会触发加载。
+
+            // 添加子节点会导致加载慢于 02.js 。
+            var s01 = document.createElement('script');
+            s01.src="/loadjs-01.js";
+            s.append(s01);
+
+            // 解决方案，所有的可能连接多条 script 都写上，失败就失败吧。
+        }
+    </script>
+    <script id="loadJss" src="/loadjs-xx.js" onerror="javascript:loadError();"></script>
+    <script src="/loadjs-02.js" ></script>
+</head>
+
+<body>
+
+</body>
+</html>
